@@ -17,6 +17,8 @@ The plugin currently includes:
 
 Claude Code discovers skills in the plugin automatically. For other agents, copy or adapt the relevant files under `skills/` and use the appropriate local skill directory.
 
+Codex discovers the same skills through `.agents/skills/`. Those entries are symlinks into the plugin's `plugins/tdk-cli/skills/` source, so each skill has one maintained copy.
+
 ## Repository guidance
 
 - [`rules/AGENTS.landscape.md`](rules/AGENTS.landscape.md) is a short baseline for TDK project, example and starter repositories.
