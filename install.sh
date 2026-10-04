@@ -26,7 +26,7 @@ case "$AGENT" in ""|claude|codex|opencode|cursor|agents) ;; *) usage ;; esac
 
 # Source: this checkout if run from one, otherwise a cached clone.
 SELF_DIR=""
-case "$0" in */*) SELF_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd)" || SELF_DIR="" ;; esac
+if [ -f "$0" ]; then SELF_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd)" || SELF_DIR=""; fi
 if [ -n "$SELF_DIR" ] && [ -d "$SELF_DIR/skills" ]; then
   SRC="$SELF_DIR/skills"
 else
@@ -40,6 +40,12 @@ else
 fi
 
 if [ "$SCOPE" = "global" ]; then BASE="$HOME"; else BASE="$(pwd)"; fi
+
+# Linking into the skills repo itself would rewrite its tracked symlinks.
+if [ "$BASE" = "$(dirname "$SRC")" ]; then
+  echo "refusing to install into the tdk-skills checkout itself; run from your project (or use --global)" >&2
+  exit 1
+fi
 
 agent_dir() {
   case "$1:$SCOPE" in
