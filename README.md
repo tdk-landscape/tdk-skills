@@ -1,23 +1,40 @@
-# TDK Skills
+# tdk-skills
 
-Shared agent skills and repository guidance for projects in the [TDK Landscape organization](https://github.com/tdk-landscape).
+Portable [Agent Skills](https://agentskills.io/specification) for the TDK CLI. One copy of each skill under `skills/`; the installer symlinks it into the directories your tool scans.
 
-This repository is the source of truth for reusable CLI skills and baseline repository rules. Keep project-specific instructions in each project's `AGENTS.md`; do not copy this entire skill catalog into every repository.
-
-## Install the Claude plugin
-
-```text
-/plugin marketplace add tdk-landscape/tdk-skills
-/plugin install tdk-cli@tdk-skills
+```bash
+curl -fsSL https://tdk-landscape.github.io/install.sh | sh                                              # 1. CLI
+npx skills add tdk-landscape/tdk-skills                                                                 # 2. skills
+curl -fsSL https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/install.sh | sh -s -- --agent codex   # 2 (alt)
+cp rules/AGENTS.landscape.md ./AGENTS.md                                                                # 3. rules template
 ```
 
-The plugin currently includes:
+`install.sh` flags: `--agent claude|codex|opencode|cursor|agents`, `--global`, `--project` (default). It always links into `.agents/skills/` and also into the selected agent's directory. It only symlinks; it never copies the markdown and never uses `sudo`.
 
-- `tdk-troubleshoot`: diagnose TDK, Docker and Tilt problems using verified guidance.
+## Skills
 
-Claude Code discovers skills in the plugin automatically. For other agents, copy or adapt the relevant files under `skills/` and use the appropriate local skill directory.
+| Skill | Use |
+|---|---|
+| `tdk-doctor` | Check or repair the environment and project config before `tdk up`. |
+| `tdk-troubleshoot` | Diagnose a failed `tdk up`, Docker or Tilt session. |
+| `layer-autoresearch` | Contributor experiment loop for the L1-L4 Docker layers. |
 
-Codex discovers the same skills through `.agents/skills/`. Those entries are symlinks into the plugin's `plugins/tdk-cli/skills/` source, so each skill has one maintained copy.
+## Tools
+
+| Tool | Status |
+|---|---|
+| Claude Code | Documented path `.claude/skills/<name>/SKILL.md`: `install.sh --agent claude`. Optional plugin: `/plugin marketplace add tdk-landscape/tdk-skills`, then `/plugin install tdk-cli@tdk-skills`. |
+| Codex | Documented path `.agents/skills/<name>/SKILL.md`: `install.sh --agent codex`. |
+| OpenCode | Documented paths `.agents/skills`, `.claude/skills`, `.opencode/skills`: `install.sh --agent opencode`. |
+| Cursor | Documented path `.cursor/skills/<name>/SKILL.md`: `install.sh --agent cursor`. |
+| Omnigent | Uses `AGENTS.md` only (see `agent.yaml`); skill auto-load unverified. |
+| T3 Code | Uses `AGENTS.md` only; skill auto-load unverified. |
+| Paseo | Uses `AGENTS.md` only; skill auto-load unverified. |
+| Hermes | Uses `AGENTS.md` only; skill auto-load unverified. |
+| Traycer | Uses `AGENTS.md` only; skill auto-load unverified. |
+| Conductor-class tools | Uses `AGENTS.md` only; skill auto-load unverified. |
+
+The paths above come from each tool's documented discovery behaviour and have not been re-tested end to end. `rules/AGENTS.landscape.md` tells project repos not to copy the whole catalog.
 
 ## Repository guidance
 
@@ -28,8 +45,10 @@ Copy the applicable template into a repository as its root `AGENTS.md`, then add
 
 ## Updating skills
 
-Edit and review a skill here first. Product-specific command behavior should be checked against [`tdk-cli-core`](https://github.com/tdk-landscape/tdk-cli-core) before publishing. Keep any mirror in the CLI repository synchronized from this source instead of editing two independent copies.
+Edit `skills/` only; the plugin and `.agents/skills/` are symlinks. Review a skill here first. Product-specific command behavior should be checked against [`tdk-cli-core`](https://github.com/tdk-landscape/tdk-cli-core) before publishing. Keep any mirror in the CLI repository synchronized from this source instead of editing two independent copies.
+
+See [SPEC.md](SPEC.md) for the design.
 
 ## License
 
-The skills and rules in this repository are available under the MIT License; see [`LICENSE`](LICENSE).
+MIT; see [`LICENSE`](LICENSE).

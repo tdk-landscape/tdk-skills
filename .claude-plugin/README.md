@@ -1,1 +1,1 @@
-This directory defines the Claude Code marketplace. Plugin skills live under `plugins/tdk-cli/skills/`.
+This directory defines the Claude Code marketplace. The plugin's skills are a symlink to the root `skills/` directory.
