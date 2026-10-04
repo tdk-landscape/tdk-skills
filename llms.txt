@@ -1,0 +1,27 @@
+# TDK Skills
+
+> Portable Agent Skills (`SKILL.md`) and `AGENTS.md` rule templates for working with the TDK CLI: a local-only, Docker + Tilt development tool. Not a deployment tool; do not invent Kubernetes or Docker Compose for TDK projects.
+
+Run `tdk doctor`, then `tdk up`, from the project root. One maintained copy of each skill lives under `skills/`; the Claude plugin and `.agents/skills/` are symlinks to it.
+
+## Skills
+
+- [tdk-doctor](https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/skills/tdk-doctor/SKILL.md): check or repair the environment and project configuration before `tdk up`
+- [tdk-troubleshoot](https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/skills/tdk-troubleshoot/SKILL.md): diagnose a failed `tdk up`, Docker or Tilt session
+- [layer-autoresearch](https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/skills/layer-autoresearch/SKILL.md): contributor experiment loop for the L1-L4 Docker layers
+
+## Rules templates
+
+- [AGENTS.landscape.md](https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/rules/AGENTS.landscape.md): for TDK project, example and starter repos
+- [AGENTS.cli-core.md](https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/rules/AGENTS.cli-core.md): for contributors to tdk-cli-core
+
+## Install
+
+- [README](https://github.com/tdk-landscape/tdk-skills/blob/main/README.md): `npx skills add tdk-landscape/tdk-skills`, or `install.sh --agent claude|codex|opencode|cursor|agents`
+- [SPEC](https://github.com/tdk-landscape/tdk-skills/blob/main/SPEC.md): layout and discovery paths
+
+## Related
+
+- [TDK docs](https://tdk-landscape.github.io/docs/quickstart/): quick start and configuration
+- [TDK llms.txt](https://tdk-landscape.github.io/llms.txt): index of the TDK site, docs and reference landscapes
+- [tdk-cli-core](https://github.com/tdk-landscape/tdk-cli-core): the CLI source and `cli/README.md` command reference
