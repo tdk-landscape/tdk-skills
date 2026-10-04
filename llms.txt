@@ -22,6 +22,6 @@ Run `tdk doctor`, then `tdk up`, from the project root. One maintained copy of e
 
 ## Related
 
-- [TDK docs](https://tdk-landscape.github.io/docs/quickstart/): quick start and configuration
-- [TDK llms.txt](https://tdk-landscape.github.io/llms.txt): index of the TDK site, docs and reference landscapes
+- [TDK docs](https://tdk-landscape.github.io/tdk-website/docs/quickstart/): quick start and configuration
+- [TDK llms.txt](https://tdk-landscape.github.io/tdk-website/llms.txt): index of the TDK site, docs and reference landscapes
 - [tdk-cli-core](https://github.com/tdk-landscape/tdk-cli-core): the CLI source and `cli/README.md` command reference

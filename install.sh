@@ -32,7 +32,10 @@ if [ -n "$SELF_DIR" ] && [ -d "$SELF_DIR/skills" ]; then
 else
   CACHE="${XDG_DATA_HOME:-$HOME/.local/share}/tdk-skills"
   if [ -d "$CACHE/.git" ]; then
-    git -C "$CACHE" pull --ff-only --quiet
+    git -C "$CACHE" pull --ff-only --quiet || {
+      echo "cannot update $CACHE (local changes or diverged history); remove it and re-run: rm -rf \"$CACHE\"" >&2
+      exit 1
+    }
   else
     git clone --depth 1 --quiet "$REPO_URL" "$CACHE"
   fi
@@ -60,6 +63,11 @@ agent_dir() {
 link_all() {
   dest="$BASE/$1"
   mkdir -p "$dest" || { echo "cannot create $dest; create it manually and re-run" >&2; exit 1; }
+  # Drop links we created earlier whose skill no longer exists in the source.
+  for l in "$dest"/*; do
+    [ -L "$l" ] || continue
+    case "$(readlink "$l")" in "$SRC"/*) [ -e "$l" ] || { rm "$l"; echo "removed stale $l"; } ;; esac
+  done
   for d in "$SRC"/*/; do
     name="$(basename "$d")"
     target="$dest/$name"
