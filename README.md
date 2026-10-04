@@ -34,7 +34,9 @@ cp rules/AGENTS.landscape.md ./AGENTS.md                                        
 | Traycer | Uses `AGENTS.md` only; skill auto-load unverified. |
 | Conductor-class tools | Uses `AGENTS.md` only; skill auto-load unverified. |
 
-The paths above come from each tool's documented discovery behaviour and have not been re-tested end to end. `rules/AGENTS.landscape.md` tells project repos not to copy the whole catalog.
+`npx skills add tdk-landscape/tdk-skills` was run against a fresh project (2026-10-04): it found all three skills and installed them into `.agents/skills/`, which it treats as the shared path for Codex, OpenCode and Cursor, and linked them into `.claude/skills/` for Claude Code. `install.sh --agent opencode` was also run and produced working symlinks.
+
+The per-tool paths above otherwise come from each tool's documented discovery behaviour and have not been re-tested end to end. `rules/AGENTS.landscape.md` tells project repos not to copy the whole catalog.
 
 ## Repository guidance
 
