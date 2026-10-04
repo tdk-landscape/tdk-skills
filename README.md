@@ -47,6 +47,12 @@ Copy the applicable template into a repository as its root `AGENTS.md`, then add
 
 Edit `skills/` only; the plugin and `.agents/skills/` are symlinks. Review a skill here first. Product-specific command behavior should be checked against [`tdk-cli-core`](https://github.com/tdk-landscape/tdk-cli-core) before publishing. Keep any mirror in the CLI repository synchronized from this source instead of editing two independent copies.
 
+## For agents and LLMs
+
+- [`llms.txt`](llms.txt) indexes every skill and rules template with raw URLs.
+- [`AGENTS.md`](AGENTS.md) is the short instruction file for tools that don't load skills.
+- The TDK site publishes its own index at <https://tdk-landscape.github.io/llms.txt> and a guide at <https://tdk-landscape.github.io/docs/agents/>.
+
 See [SPEC.md](SPEC.md) for the design.
 
 ## License

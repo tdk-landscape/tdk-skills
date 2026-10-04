@@ -13,3 +13,5 @@ Each skill is a folder under `skills/` with a `SKILL.md`:
 - `skills/layer-autoresearch/SKILL.md`: contributor experiment loop for the L1-L4 Docker layers.
 
 If your tool does not load skills automatically, read the relevant `SKILL.md` directly.
+
+Machine-readable index: `llms.txt`. TDK docs index: https://tdk-landscape.github.io/llms.txt
