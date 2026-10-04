@@ -1,18 +1,12 @@
 # Spec: portable TDK skills
 
-Status: draft · Package: `tdk-landscape/tdk-skills`
+Status: implemented (2026-10-04) · Package: `tdk-landscape/tdk-skills`
 
 ## Goal
 
 One maintained copy of each skill, installable into the directories that agent orchestrators already scan, with no Claude-only layout required.
 
 The tier list is a set of agent orchestrators, not TDK users. Most never look at `.claude-plugin`. They look for a folder containing a `SKILL.md`. So `tdk-skills` becomes a portable Agent Skills package, and the Claude plugin becomes an optional extra.
-
-## Current state
-
-- Skills live in `tdk-cli-core/.claude/skills/{tdk-doctor,tdk-troubleshoot,layer-autoresearch}/SKILL.md`, next to unrelated `openspec-*` skills.
-- `.claude-plugin/marketplace.json` names the marketplace `tdk-skills` and points the `tdk-cli` plugin at `./plugins/tdk-cli`. That path does not exist. The only file is `.claude-plugin/tdk-cli/plugin.json`, so the marketplace entry is broken today.
-- There is no `rules/` directory, no installer and no root `AGENTS.md` for skills.
 
 ## Source of truth
 
@@ -86,7 +80,7 @@ curl -fsSL https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/insta
 Flags: `--agent claude|codex|opencode|cursor|agents`, `--global`, `--project`.
 
 - Default is a project-local symlink into `.agents/skills/`, plus a symlink into the selected agent's directory.
-- Never vendor a second copy of the markdown.
+- Never vendor a second copy of the markdown. The only sanctioned copy is the generated mirror in `tdk-cli-core` (see Consumers).
 - No `sudo`. If a target is not writable, fail fast and print the manual command.
 
 ## Instructions-only tools
@@ -116,14 +110,9 @@ List every tool from the tier list with one of two entries:
 
 Do not claim T3, Paseo, Hermes or Traycer load `SKILL.md` until that is checked. Do not invent commands for tools that were not verified.
 
-## Migration steps
+## Consumers
 
-1. Create the `tdk-skills` repo layout above. Move the three skills out of `tdk-cli-core/.claude/skills/`. Leave the `openspec-*` skills where they are.
-2. Rewrite each frontmatter to the canonical form. Check that `name` matches the folder and `description` is under 1024 characters.
-3. Create `plugins/tdk-cli/skills` as a symlink to `../../skills`. Fix the marketplace `source` so it resolves.
-4. Write `install.sh`, `AGENTS.md`, `agent.yaml` and `rules/`.
-5. Rewrite the README.
-6. In `tdk-cli-core`, replace the moved skills with a symlink or an install step. Do not keep a second copy.
+`tdk-cli-core` keeps a generated mirror of these skills in `.claude/skills/` and `.agents/skills/` so it builds without a sibling checkout. `scripts/sync-tdk-skills.sh` there reads `skills/` from this repo. Never edit the mirror; change the skill here and re-run the sync (the workflow is dispatch-only, so it is not triggered automatically).
 
 ## Acceptance
 
@@ -135,5 +124,4 @@ Do not claim T3, Paseo, Hermes or Traycer load `SKILL.md` until that is checked.
 
 ## Open questions
 
-- Does `npx skills add` accept this layout as is, or does it need a manifest?
 - Do T3 Code, Paseo, Hermes or Traycer scan any of the paths above? Check each tool's docs before the README says so.

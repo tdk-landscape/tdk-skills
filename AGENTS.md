@@ -14,4 +14,4 @@ Each skill is a folder under `skills/` with a `SKILL.md`:
 
 If your tool does not load skills automatically, read the relevant `SKILL.md` directly.
 
-Machine-readable index: `llms.txt`. TDK docs index: https://tdk-landscape.github.io/llms.txt
+Machine-readable index: `llms.txt`. TDK docs index: https://tdk-landscape.github.io/tdk-website/llms.txt

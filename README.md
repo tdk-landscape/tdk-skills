@@ -9,7 +9,7 @@ curl -fsSL https://raw.githubusercontent.com/tdk-landscape/tdk-skills/main/insta
 cp rules/AGENTS.landscape.md ./AGENTS.md                                                                # 3. rules template
 ```
 
-`install.sh` flags: `--agent claude|codex|opencode|cursor|agents`, `--global`, `--project` (default). It always links into `.agents/skills/` and also into the selected agent's directory. It only symlinks; it never copies the markdown and never uses `sudo`.
+`install.sh` flags: `--agent claude|codex|opencode|cursor|agents`, `--global`, `--project` (default). It always links into `.agents/skills/` and also into the selected agent's directory. `--global` links into the user-level directories (`~/.agents/skills`, `~/.claude/skills`, `~/.cursor/skills`, `~/.config/opencode/skills`). Symlinks point at an absolute path: your checkout, or a clone cached in `~/.local/share/tdk-skills` when run via `curl`; if that moves, re-run the installer. It only symlinks; it never copies the markdown and never uses `sudo`.
 
 ## Skills
 
@@ -53,7 +53,7 @@ Edit `skills/` only; the plugin and `.agents/skills/` are symlinks. Review a ski
 
 - [`llms.txt`](llms.txt) indexes every skill and rules template with raw URLs.
 - [`AGENTS.md`](AGENTS.md) is the short instruction file for tools that don't load skills.
-- The TDK site publishes its own index at <https://tdk-landscape.github.io/llms.txt> and a guide at <https://tdk-landscape.github.io/docs/agents/>.
+- The TDK site publishes its own index at <https://tdk-landscape.github.io/tdk-website/llms.txt> and a guide at <https://tdk-landscape.github.io/tdk-website/docs/agents/>.
 
 See [SPEC.md](SPEC.md) for the design.
 
